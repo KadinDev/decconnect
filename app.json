@@ -1,0 +1,12 @@
+{
+  "name": "devconnect",
+  "displayName": "devconnect",
+  "expo": {
+    "name": "devconnect",
+    "slug": "devconnect",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
