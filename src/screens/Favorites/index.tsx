@@ -7,7 +7,7 @@ import {
 export function Favorites(){
     return (
         <Container>
-            <Text style={{color: '#FFF', fontSize: 30}}> Tela de favoritos </Text>
+            <Text style={{color: '#FFF', fontSize: 30}}> FAVORITOS </Text>
         </Container>
     );
 }
