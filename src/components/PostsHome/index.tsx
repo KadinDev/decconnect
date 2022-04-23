@@ -63,7 +63,11 @@ export function PostsHome( { data } : Props ){
     };
 
     return (
-        <Container>
+        <Container
+        from = {{ opacity: 0, translateY: 300 }}
+        animate = {{ opacity: 1, translateY: 0 }}
+        transition = {{ type: 'timing', duration: 1000, delay: 100 }}
+        >
             <UserContent>
                 
                 <UserContainer>
@@ -77,7 +81,12 @@ export function PostsHome( { data } : Props ){
                     </InfoAvatar>
                 </UserContainer>
                 
-                <AvatarLevel source={{uri: data.level}} />
+                <AvatarLevel 
+                from = {{ scaleX: 1 }}
+                animate = {{ scaleX: 1.5 }}
+                transition = {{ type: 'timing', duration: 1500, delay: 100, loop: true }}
+                
+                source={{uri: data.level}} />
             
             </UserContent>
 

@@ -1,14 +1,14 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
-import { MotiView } from 'moti';
+import { MotiView, MotiImage } from 'moti';
 
-export const Container = styled.View`
+export const Container = styled(MotiView)`
     width: 100%;
     background-color: ${({theme}) => theme.COLORS.BACKGROUND_MENU};
     margin-bottom: ${RFValue(20)}px;
     padding: ${RFValue(10)}px;
-    height: ${RFValue(230)}px;
+    height: ${RFValue(240)}px;
 `;
 
 export const UserContent = styled.View`
@@ -60,7 +60,7 @@ export const AboutAvatar = styled.Text`
     font-family: ${({theme}) => theme.FONTS.ROBOTO_700 };
 `;
 
-export const AvatarLevel = styled.Image`
+export const AvatarLevel = styled(MotiImage)`
     width: ${RFValue(40)}px;
     height: ${RFValue(40)}px;
 `;
