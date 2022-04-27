@@ -21,11 +21,11 @@ import { ButtonIcon } from '@components/ButtonIcon';
 import theme from '../../theme';
 
 type UserProps = {
-    user: PostsHomeProps
+    user: PostsHomeProps;
     hideModal: () => void;
 };
 
-export function ModalPostUser( { user, hideModal } : UserProps ){
+export function ContentModalPostUser( { user, hideModal } : UserProps ){
     
     return (
         <Container>

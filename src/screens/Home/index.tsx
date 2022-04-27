@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { FlatList, Modal } from 'react-native';
+import { FlatList } from 'react-native';
 
 import {
     Container,

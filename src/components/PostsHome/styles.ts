@@ -60,7 +60,7 @@ export const AboutAvatar = styled.Text`
     font-family: ${({theme}) => theme.FONTS.ROBOTO_700 };
 `;
 
-export const AvatarLevel = styled(MotiImage)`
+export const AvatarLevel = styled.Image`
     width: ${RFValue(40)}px;
     height: ${RFValue(40)}px;
 `;

@@ -42,7 +42,7 @@ interface Props {
     data: PostsHomeProps;
 };
 
-import { ModalPostUser } from '@components/ModalPostUser';
+import { ContentModalPostUser } from '@components/ContentModalPostUser';
 
 export function PostsHome( { data } : Props ){
 
@@ -81,12 +81,7 @@ export function PostsHome( { data } : Props ){
                     </InfoAvatar>
                 </UserContainer>
                 
-                <AvatarLevel 
-                from = {{ scaleX: 1 }}
-                animate = {{ scaleX: 1.5 }}
-                transition = {{ type: 'timing', duration: 1500, delay: 100, loop: true }}
-                
-                source={{uri: data.level}} />
+                <AvatarLevel source={{uri: data.level}} />
             
             </UserContent>
 
@@ -138,7 +133,7 @@ export function PostsHome( { data } : Props ){
                 transparent={true}
             >
                 
-                <ModalPostUser
+                <ContentModalPostUser
                     user={data}
                     hideModal={closeModal}
                 />
