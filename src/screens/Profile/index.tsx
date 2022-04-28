@@ -8,7 +8,6 @@ import {
 export function Profile(){
     return (
         <Container>
-            <Text style={{color: 'white', fontSize: 30}}>PROFILE</Text>
         </Container>
     );
 }
