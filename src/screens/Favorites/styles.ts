@@ -85,6 +85,7 @@ export const DeleteAnimation = styled.View`
     bottom: 0;
     align-items: center;
     justify-content: center;
+    z-index: 100;
 `;
 
 export const ContentDeleteAnimation = styled.View`
