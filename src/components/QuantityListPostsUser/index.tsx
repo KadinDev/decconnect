@@ -6,14 +6,17 @@ import {
     Header,
     Title,
     Search,
-    ButtonSearch
+    ButtonSearch,
+    ViewPost,
+    TitlePost
 } from './styles';
 
 import theme from '../../theme';
 
 import { ButtonIcon } from '@components/ButtonIcon';
 import { Input } from '@components/Input';
-import {connections} from '@utils/contents';
+
+import { POSTS } from '@utils/listPosts';
 
 type Props = {
     hideModal: () => void;
@@ -49,6 +52,24 @@ export function QuantityListPostsUser( {hideModal} : Props ){
                 </ButtonSearch>
 
             </Search>
+
+
+            {
+                POSTS.map((post) => {
+                    return (
+                        <ViewPost key={post.id}>
+                            <TitlePost numberOfLines={2}> {post.titleContent} </TitlePost>
+
+                            <ButtonIcon
+                            icon="arrow-right-alt"
+                            color={theme.COLORS.TEXT}
+                            //onPress={ handleNewPost }
+                            />
+                    
+                        </ViewPost>
+                    )
+                })
+            }
 
 
         </Container>

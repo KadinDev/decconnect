@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { DrawerContentScrollView } from '@react-navigation/drawer';
 import { MaterialIcons } from '@expo/vector-icons';
+import {Alert} from 'react-native';
 
 import {
     Container,
@@ -45,7 +46,7 @@ export function CustomDrawerContent( {type, ...rest} : Props ){
             <Container>
                 <ButtonIconDrawer
                     type="secondary"
-                    onPress={ () => alert('mensagens')}
+                    onPress={ () => Alert.alert('Em Breve', 'Estamos trabalhando nisso!')}
                     {...rest}
                 >
                     <IconMessages name="forum" />

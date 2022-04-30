@@ -15,8 +15,6 @@ import {
     LevelUser,
     Likes,
     Friends,
-    ButtonSearch,
-    SearchPosts,
     ViewPost,
     TitlePost,
 } from './styles';
@@ -33,7 +31,7 @@ import { QuantityConnectionsUser } from '@components/QuantityConnectionsUser';
 
 export function Profile(){
 
-    const [user, setUser] = useState(false);
+    const [user, setUser] = useState(true);
     const [showButtonConnectNewDev, setShowButtonConnectNewDev] = useState(true);
     const [modal, setModal] = useState(false);
     const [replaceContentModal, setReplaceContentModal] = useState('posts');
@@ -155,34 +153,13 @@ export function Profile(){
                     </ViewStatus>
                 </Info>
 
-
-                <SearchPosts>
-
-                    <Input
-                    size='medium'
-                    placeholder='Buscar post'
-                    autoCorrect={false}
-                    autoCapitalize="none"
-                    />
-
-                    <ButtonSearch>
-                        <ButtonIcon
-                        //isLoading={isLoading}
-                        color={theme.COLORS.TEXT}
-                        icon="search"
-                        onPress={ () => alert('Buscando...') }
-                        />
-                    </ButtonSearch>
-
-                </SearchPosts>
-                
-                <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={handleShowAllPosts}
-                >
-                    <Text style={{color: theme.COLORS.TEXT_OPACITY, 
-                        textAlign: 'right', fontSize: RFValue(15)}}> ...ver todos</Text>
-                </TouchableOpacity>
+                <Text style={{color: theme.COLORS.LIME, 
+                    textAlign: 'left', marginTop: RFValue(10), fontSize: RFValue(15),
+                    opacity: 0.7
+                }}
+                > 
+                    Últimos envios
+                </Text>
 
                 {
                     POSTS.map((post) => {
@@ -201,6 +178,14 @@ export function Profile(){
                     })
                 }
                 
+                <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={handleShowAllPosts}
+                >
+                    <Text style={{color: theme.COLORS.TEXT_OPACITY, 
+                        textAlign: 'right', fontSize: RFValue(15)}}> ...ver todos
+                    </Text>
+                </TouchableOpacity>
                 
                 <Modal
                     visible={modal}

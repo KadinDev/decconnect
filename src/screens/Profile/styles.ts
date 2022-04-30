@@ -106,24 +106,6 @@ export const Friends = styled.Text`
     text-align: center;
 `;
 
-export const SearchPosts = styled.View`
-    width: 100%;
-    height: ${RFValue(40)}px;
-    margin-bottom: ${RFValue(20)}px;
-`;
-
-export const ButtonSearch = styled.View`
-    height: ${RFValue(40)}px;
-    width: ${RFValue(40)}px;
-    align-items: center;
-    justify-content: center;
-    background-color: ${({theme}) => theme.COLORS.RED};
-    position: absolute;
-    right: ${RFValue(0)}px;
-    border-top-right-radius: ${RFValue(10)}px;
-    border-bottom-right-radius: ${RFValue(10)}px;
-`;
-
 export const ViewPost = styled.View`
     width: 100%;
     margin: ${RFValue(10)}px 0;

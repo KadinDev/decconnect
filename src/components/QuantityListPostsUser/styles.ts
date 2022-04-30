@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 
-
 import { MotiView } from 'moti';
 
 export const Container = styled.View`
@@ -41,4 +40,26 @@ export const ButtonSearch = styled.View`
     right: ${RFValue(0)}px;
     border-top-right-radius: ${RFValue(10)}px;
     border-bottom-right-radius: ${RFValue(10)}px;
+`;
+
+export const ViewPost = styled.View`
+    width: 100%;
+    margin: ${RFValue(10)}px 0;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom-width: 1px;
+    border-color: ${({theme}) => theme.COLORS.TEXT_OPACITY};
+`;
+
+export const TitlePost = styled.Text`
+    font-size: ${RFValue(15)}px;
+    line-height: ${RFValue(20)}px;
+    color: ${({theme}) => theme.COLORS.TEXT};
+    font-family: ${({theme}) => theme.FONTS.TEXT};
+    text-align: left;
+    width: 90%;
+    border-bottom-width: 1px;
+    padding-bottom: ${RFValue(5)}px;
+    border-color: ${({theme}) => theme.COLORS.BACKGROUND_MENU};
 `;

@@ -44,11 +44,19 @@ interface Props {
 
 import { ContentModalPostUser } from '@components/ContentModalPostUser';
 
+import { useNavigation } from '@react-navigation/native';
+
 export function PostsHome( { data } : Props ){
 
     const [like, setLike] = useState(false);
     const [favorite, setFavorite] = useState(false);
     const [modal, setModal] = useState(false);
+
+    const navigation = useNavigation();
+
+    function handleNavigationProfileUser( ){
+        navigation.navigate('Perfil' as never );
+    };
 
     function handleLike(){
         setLike(!like);
@@ -71,7 +79,9 @@ export function PostsHome( { data } : Props ){
             <UserContent>
                 
                 <UserContainer>
-                    <ButtonAvatar onPress={() => alert(data.name)} >
+                    <ButtonAvatar
+                        onPress={handleNavigationProfileUser}
+                    >
                         <Avatar source={{uri: data.avatar}} />
                     </ButtonAvatar>
                 
