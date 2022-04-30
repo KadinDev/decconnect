@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { KeyboardAvoidingView, View, TouchableOpacity, Text } from 'react-native';
+import { Modal, KeyboardAvoidingView, View, TouchableOpacity, Text } from 'react-native';
 
 import {
     Container,
@@ -17,9 +17,8 @@ import {
     Friends,
     ButtonSearch,
     SearchPosts,
-
     ViewPost,
-    TitlePost
+    TitlePost,
 } from './styles';
 
 import { POSTS } from '@utils/listPosts';
@@ -29,11 +28,16 @@ import {RFValue} from 'react-native-responsive-fontsize';
 import { ButtonIcon } from '@components/ButtonIcon';
 import { Input } from '@components/Input';
 
+import { QuantityListPostsUser } from '@components/QuantityListPostsUser';
+import { QuantityConnectionsUser } from '@components/QuantityConnectionsUser';
+
 export function Profile(){
 
     const [user, setUser] = useState(false);
     const [showButtonConnectNewDev, setShowButtonConnectNewDev] = useState(true);
-
+    const [modal, setModal] = useState(false);
+    const [replaceContentModal, setReplaceContentModal] = useState('posts');
+    
     // se for um usuário visitando seu perfil
     function handleConnectNewDev(){
         if(showButtonConnectNewDev === true){
@@ -62,8 +66,20 @@ export function Profile(){
 
     // para visitante e dono do perfil
     function handleViewFriends(){
-        alert('Ir para amigos')
-    }
+        setReplaceContentModal('connected');
+        setModal(true);
+    };
+
+    function handleShowAllPosts(){
+        if (replaceContentModal === 'connected'){
+            setReplaceContentModal('posts');
+        };
+        setModal(true);
+    };
+
+    function closeModal(){
+        setModal(false);
+    };
 
     /* fazer a ideia de:
     se o user logado for o dono do perfil, aparecer as opções 
@@ -90,7 +106,7 @@ export function Profile(){
                         <ButtonIcon
                         icon="update"
                         color={theme.COLORS.LIME}
-                        style={{position: 'absolute', top: RFValue(0), right: RFValue(100)}}
+                        style={{position: 'absolute', top: RFValue(0), right: RFValue(90)}}
                         onPress={handleUpdatedPhoto}
                         />
 
@@ -99,7 +115,7 @@ export function Profile(){
                         <ButtonIcon
                         icon={showButtonConnectNewDev ? 'connect-without-contact' : 'check'}
                         color={showButtonConnectNewDev ? theme.COLORS.LIME : theme.COLORS.TEXT_OPACITY}
-                        style={{position: 'absolute', top: RFValue(0), right: RFValue(100)}}
+                        style={{position: 'absolute', top: RFValue(0), right: RFValue(90)}}
                         onPress={handleConnectNewDev}
                         />
 
@@ -116,7 +132,7 @@ export function Profile(){
                             onPress={ handleNewPost }
                             />
                         ) }
-                        <QuantityPosts> 555 {'\n'} Send </QuantityPosts>
+                        <QuantityPosts> 5.555 {'\n'} posts </QuantityPosts>
                     </ViewStatus>
             
                     <ViewLevel>
@@ -135,7 +151,7 @@ export function Profile(){
                         color={theme.COLORS.LIME}
                         onPress={ handleViewFriends }
                         />
-                        <Friends> 257 {'\n'} Union </Friends>
+                        <Friends> 1.257 {'\n'} connected </Friends>
                     </ViewStatus>
                 </Info>
 
@@ -154,7 +170,7 @@ export function Profile(){
                         //isLoading={isLoading}
                         color={theme.COLORS.TEXT}
                         icon="search"
-                        //onPress={ () => setIsLoading(!isLoading) }
+                        onPress={ () => alert('Buscando...') }
                         />
                     </ButtonSearch>
 
@@ -162,7 +178,7 @@ export function Profile(){
                 
                 <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => alert('Ver todos...')}
+                onPress={handleShowAllPosts}
                 >
                     <Text style={{color: theme.COLORS.TEXT_OPACITY, 
                         textAlign: 'right', fontSize: RFValue(15)}}> ...ver todos</Text>
@@ -185,6 +201,23 @@ export function Profile(){
                     })
                 }
                 
+                
+                <Modal
+                    visible={modal}
+                    animationType="slide"
+                    transparent={true}
+                >
+                    { replaceContentModal === 'posts' ? (
+                        <QuantityListPostsUser
+                            hideModal={closeModal}
+                        />
+                    ) : 
+                        <QuantityConnectionsUser
+                            hideModal={closeModal}
+                        />
+                    }
+                    
+                </Modal>
 
             </ContentUser>
         </Container>

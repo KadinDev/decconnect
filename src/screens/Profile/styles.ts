@@ -39,6 +39,7 @@ export const About = styled.Text`
     color: ${({theme}) => theme.COLORS.LIME};
     font-family: ${({theme}) => theme.FONTS.ROBOTO_500};
     margin-bottom: ${RFValue(10)}px;
+    opacity: 0.5;
 `;
 
 export const DescriptionDev = styled.Text`
@@ -64,6 +65,7 @@ export const ViewStatus = styled.View`
     align-items: center;
     justify-content: center;
     position: relative;
+    width: ${RFValue(100)}px;
 `;
 
 export const QuantityPosts = styled.Text`
@@ -139,5 +141,6 @@ export const TitlePost = styled.Text`
     width: 90%;
     border-bottom-width: 1px;
     padding-bottom: ${RFValue(5)}px;
-    border-color: ${({theme}) => theme.COLORS.BACKGROUND_MENU}
-`
+    border-color: ${({theme}) => theme.COLORS.BACKGROUND_MENU};
+`;
+
