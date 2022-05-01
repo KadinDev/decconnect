@@ -1,5 +1,4 @@
 import React from 'react';
-import {Text, Button} from 'react-native';
 
 import {
     Container,
@@ -70,7 +69,6 @@ export function QuantityListPostsUser( {hideModal} : Props ){
                     )
                 })
             }
-
 
         </Container>
     );

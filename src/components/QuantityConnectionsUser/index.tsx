@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, FlatList} from 'react-native';
+import {FlatList} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 import {
@@ -30,7 +30,6 @@ type Props = {
 export function QuantityConnectionsUser( {hideModal} : Props ){
     return (
         <Container>
-
             <Header>
                 <Title style={{color: '#fff'}}> Todas as conexões </Title>
                 <ButtonIcon 

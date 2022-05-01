@@ -128,3 +128,6 @@ CARREGANDO INFORMAÇÕES DO FIREBASE
         })
         .catch(error => console.error(error));
     },[]);
+
+================================
+Para validação de formulários
