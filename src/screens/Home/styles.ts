@@ -24,11 +24,9 @@ export const ButtonSearch = styled.View`
     width: ${RFValue(50)}px;
     align-items: center;
     justify-content: center;
-    background-color: ${({theme}) => theme.COLORS.RED};
+    background-color: ${({theme}) => theme.COLORS.BACKGROUND};
     position: absolute;
     right: ${RFValue(10)}px;
     border-bottom-left-radius: ${RFValue(25)}px;
     border-top-left-radius: ${RFValue(25)}px;
-    border-top-right-radius: ${RFValue(10)}px;
-    border-bottom-right-radius: ${RFValue(10)}px;
 `;

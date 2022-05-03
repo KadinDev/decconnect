@@ -11,6 +11,7 @@ export default {
         TEXT_OPACITY: '#58585E',
         WHITE_SECONDARY: '#F5F5F5',
         RED_CLICK_BUTTON: '#FF1F1F',
+        BACKGROUND_TRANSPARENT: 'rgba(0, 0, 0, 0.4)',
     },
 
     FONTS: {

@@ -29,11 +29,11 @@ export const ButtonSearch = styled.View`
     width: ${RFValue(40)}px;
     align-items: center;
     justify-content: center;
-    background-color: ${({theme}) => theme.COLORS.RED};
+    background-color: ${({theme}) => theme.COLORS.BACKGROUND};
     position: absolute;
     right: ${RFValue(0)}px;
-    border-top-right-radius: ${RFValue(10)}px;
-    border-bottom-right-radius: ${RFValue(10)}px;
+    border-top-right-radius: ${RFValue(5)}px;
+    border-bottom-right-radius: ${RFValue(5)}px;
 `;
 
 export const Title = styled.Text`

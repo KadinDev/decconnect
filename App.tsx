@@ -9,8 +9,6 @@ import { ThemeProvider } from 'styled-components/native';
 import theme from './src/theme';
 
 import { Routes } from './src/routes';
-import { Register } from '@screens/Register';
-import { SignIn } from '@screens/SignIn';
 
 export default function App(){
   
@@ -30,11 +28,7 @@ export default function App(){
 
       <StatusBar style="light" translucent backgroundColor="transparent" />
 
-      {/*
-        <Routes/>
-      */}
-
-      <SignIn />
+      <Routes/>
 
     </ThemeProvider>
   )

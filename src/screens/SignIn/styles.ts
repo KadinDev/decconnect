@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import {RFValue} from 'react-native-responsive-fontsize';
-import { getStatusBarHeight, getBottomSpace } from 'react-native-iphone-x-helper';
+import { MotiText, MotiView } from 'moti'
 
 export const Container = styled.View`
     flex: 1;
@@ -50,4 +50,38 @@ export const IconInput = styled.Image.attrs({
     margin-left: ${RFValue(5)}px;
 `;
 
-export const SubTitle = styled.Text``;
+export const MenuOptions = styled.View`
+    position: absolute;
+    bottom: ${RFValue(10)}px;
+    width: 70%;
+`;
+
+export const ViewOptios = styled.View`
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: ${RFValue(10)}px;
+`;
+
+export const SubTitle = styled.Text`
+    color: ${({theme}) => theme.COLORS.BACKGROUND_MENU};
+    font-size: ${RFValue(16)}px;
+    font-family: ${({theme}) => theme.FONTS.ROBOTO_500};
+    opacity: 0.7;
+`;
+
+export const RecoverAccount = styled.View`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: ${({theme}) => theme.COLORS.BACKGROUND_TRANSPARENT};
+    align-items: center;
+    justify-content: center;
+`;
+
+export const ContentRecover = styled.View`
+    flex-direction: row;
+    width: 80%;
+    height: ${RFValue(50)}px;
+    position: relative;
+`;

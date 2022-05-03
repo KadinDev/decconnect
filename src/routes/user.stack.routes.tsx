@@ -1,10 +1,4 @@
 import React from 'react';
-import {
-    TouchableOpacity,
-    Image,
-    Text,
-    View
-} from 'react-native';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
