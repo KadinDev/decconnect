@@ -16,7 +16,6 @@ export const Background = styled.ImageBackground`
 export const ViewTitle = styled.View`
     height: ${RFValue(50)}px;
     align-items: center;
-    justify-content: flex-start;
 `;
 
 export const Title = styled.Text`
@@ -37,7 +36,7 @@ export const InputView = styled.View`
 export const ViewIconInput = styled.View`
     position: absolute;
     left: ${RFValue(5)}px;
-    width: ${RFValue(40)}px;
+    width: ${RFValue(23)}px;
     height: 100%;
     justify-content: center;
 `;
@@ -52,8 +51,9 @@ export const IconInput = styled.Image.attrs({
 
 export const MenuOptions = styled.View`
     position: absolute;
-    bottom: ${RFValue(10)}px;
+    bottom: ${RFValue(5)}px;
     width: 70%;
+    align-self: center;
 `;
 
 export const ViewOptios = styled.View`

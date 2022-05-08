@@ -1,9 +1,22 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {
+    KeyboardAvoidingView,
+    Platform,
+    Text,
+    View,
+    TouchableWithoutFeedback,
+    Keyboard,
+} from 'react-native';
 
 import {
-    Container,
-    Background
+    Background,
+    Content,
+    ViewTitle,
+    Form,
+    ContentInput,
+    Title,
+    ViewInput,
+    AboutDev
 } from './styles';
 
 import imageLogin from '@assets/login.jpg';
@@ -12,32 +25,235 @@ import { useTheme } from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 import { ButtonIcon } from '@components/ButtonIcon';
-import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 
 import { useNavigation } from '@react-navigation/native';
 
-export function Register(){
+import { ControlledInput } from '@components/ControlledInput';
 
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
+import { yupResolver } from '@hookform/resolvers/yup';
+
+// só posso exportar o que estiver fora da função
+// tipando para usar no registro
+export type FormData = {
+    name: string;
+    email: string;
+    city: string;
+    password: string;
+    password_confirm: string;
+};
+
+// o yup é um biblioteca para fazer validação baseado em scheme
+// schema é uma representação de qual o padrão que seus dados terá que ter 
+export const schema = yup.object({
+    name: yup.string().required('Informe o seu nome'),
+    email: yup.string().email("Email inválido").required('Informe o e-mail'),
+    city: yup.string().required('Informe sua cidade'),
+    
+    // min = minimo 6 digitos
+    password: yup.string().min( 6, "No minimo 6 dígitos" )
+    .required('Informe a senha'),
+
+
+    // oneOf para usar a referência de outro input, para comparar
+    // pego o campo -> yup.ref('password')
+    password_confirm: yup.string().required('Confirmar senha').oneOf([ yup.ref('password'), null ],
+    'Senha não confere' )
+});
+
+
+export function Register(){
     const navigation = useNavigation();
     const { COLORS, FONTS } = useTheme();
-    
-    return (
-        <Container>
 
-            <Background source={imageLogin}
+
+    // <FormData> tipo o useForm tbm, para não dar erros
+    // formState: { errors } - assim uso para recuperar os errors
+    const { control, handleSubmit, formState: { errors } } = useForm<FormData>({
+        // agora digo que o form terá um resolver que irá usar
+        // o yupResolver, para resolver o schema criado acima, line 51
+        resolver: yupResolver(schema)
+    });
+    
+
+    function handleUserRegister( data : FormData ){
+        console.log(data)
+    };
+
+    return (       
+        <Background source={imageLogin}
             resizeMode='cover'
             style={{flex: 1,}}
+        >
+            <TouchableWithoutFeedback
+                onPress={() => Keyboard.dismiss()}
             >
-                <Text>Agora vamos lá</Text>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+                >
 
-                <ButtonIcon
-                icon='arrow-back'
-                color={COLORS.RED}
-                onPress={() => navigation.goBack()}
-                />
-            </Background>
+                    <ButtonIcon
+                    style={{marginLeft: RFValue(20)}}
+                    icon='arrow-back'
+                    color={COLORS.RED}
+                    onPress={() => navigation.goBack()}
+                    />
 
-        </Container>
+                    <Content>
+                        <Form>
+
+                            <ViewTitle>
+                                <Title> Dev
+                                    <View style={{width: RFValue(40), height: RFValue(40), 
+                                    alignItems: 'center', justifyContent: 'center' }}>
+                                        <Text style={{color: COLORS.RED, fontSize: RFValue(60), 
+                                            fontFamily: FONTS.TITLE}}>
+                                            C
+                                        </Text>
+                                    </View>onnect 
+                                </Title>
+                            </ViewTitle>
+
+                            <ContentInput>
+                                <Title> Nome Dev </Title>
+                                <ViewInput>
+                                    
+                                    <ControlledInput
+                                        control={control} // quem irá controlar esse input (useForm)
+                                        name='name' // nome único que foi tipado
+                                        error={errors.name}
+
+                                        size='medium'
+                                        style={{paddingRight: RFValue(40)}}
+                                        autoCorrect={false}
+                                        placeholder='Rick Dev'
+
+                                        /* não preciso mais ter esses dois aqui, pois estão
+                                            sendo controlados pelo react-hook-form 
+                                        
+                                            value={name}
+                                            onChangeText={setName}
+                                        */
+                                    />
+
+                                </ViewInput>
+                            </ContentInput>
+
+                            <ContentInput>
+                                <Title> E-mail </Title>
+                                <ViewInput>
+                                    
+                                    <ControlledInput
+                                        control={control} // quem irá controlar esse input (useForm)
+                                        error={errors.email}
+                                        name='email' // nome único que foi tipado
+
+                                        style={{paddingRight: RFValue(40)}}
+                                        size='medium'
+                                        autoCorrect={false}
+                                        placeholder='dev@dev.com'
+                                        keyboardType='email-address'
+                                    />
+
+                                </ViewInput>
+                            </ContentInput>
+
+                            <ContentInput>
+                                <Title> Cidade </Title>
+                                <ViewInput>
+                                    
+                                    <ControlledInput
+                                        control={control} // quem irá controlar esse input (useForm)
+                                        error={errors.city}
+                                        name='city' // nome único que foi tipado
+
+                                        style={{paddingRight: RFValue(40)}}
+                                        size='medium'
+                                        autoCorrect={false}
+                                        placeholder='Niterói - RJ'
+                                    />
+                                </ViewInput>
+                            </ContentInput>
+
+                            <ContentInput>
+                                <Title> Senha </Title>
+                                <ViewInput>
+                                    
+                                    <ControlledInput
+                                        control={control} // quem irá controlar esse input (useForm)
+                                        error={errors.password}
+                                        name='password' // nome único que foi tipado
+
+                                        size='medium'
+                                        autoCorrect={false}
+                                        placeholder='******'
+                                        secureTextEntry
+                                    />
+                                </ViewInput>
+                            </ContentInput>
+
+
+                            <ContentInput>
+                                <Title> Repetir Senha </Title>
+                                <ViewInput>
+                                    
+                                    <ControlledInput
+                                        control={control} // quem irá controlar esse input (useForm)
+                                        error={errors.password_confirm}
+                                        name='password_confirm' // nome único que foi tipado
+
+                                        size='medium'
+                                        autoCorrect={false}
+                                        placeholder='******'
+                                        secureTextEntry
+                                    />
+                                </ViewInput>
+                            </ContentInput>
+
+                            <ContentInput>
+                                <Title> Sobre </Title>
+                                <ViewInput>
+                                    
+                                    <AboutDev
+                                        style={{textAlignVertical: 'top'}}
+                                        autoCorrect={false}
+                                        multiline={true}
+                                        placeholder='Apresente-se'
+                                    />
+                                </ViewInput>
+                            </ContentInput>
+
+                            <Button
+                                style={{
+                                    width: '95%', 
+                                    alignSelf: 'center',
+                                }}
+
+                                title='Cadastrar'
+                                
+                                // agora chamo o handleSubmit, envolvendo
+                                // a função handleUserRegister
+                                onPress={ handleSubmit(handleUserRegister) }
+                                
+                                isLoading={false}
+                            />
+
+
+                        <Text
+                        style={{textAlign: 'center', 
+                        color: COLORS.BACKGROUND_TRANSPARENT,
+                        fontSize: RFValue(15), marginTop: RFValue(30)
+                        }}
+                        >devricardo@outlook.com</Text>
+
+                        </Form>
+
+                    </Content>
+
+                </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
+        </Background>
     );
 }

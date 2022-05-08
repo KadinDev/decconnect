@@ -32,8 +32,6 @@ export const ButtonSearch = styled.View`
     background-color: ${({theme}) => theme.COLORS.BACKGROUND};
     position: absolute;
     right: ${RFValue(0)}px;
-    border-top-right-radius: ${RFValue(5)}px;
-    border-bottom-right-radius: ${RFValue(5)}px;
 `;
 
 export const Title = styled.Text`

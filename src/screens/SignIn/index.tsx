@@ -24,8 +24,7 @@ import {
 } from './styles';
 
 import imageLogin from '@assets/login.jpg';
-import iconEmail from '@assets/icons/email.png';
-import iconPass from '@assets/icons/password.png';
+import { MaterialIcons } from '@expo/vector-icons';
 
 import { useTheme } from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -43,6 +42,17 @@ export function SignIn(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [recoverAccount, setRecoverAccount] = useState(false);
+    const [emailRecoverAccount, setEmailRecoverAccount] = useState('');
+
+    function handleLogin(){
+        alert(email + password)
+    };
+
+    function handleRecoverAccount(){
+        alert(`E-mail enviado para ${emailRecoverAccount}`);
+        setEmailRecoverAccount('');
+        setRecoverAccount(false);
+    };
 
     return (
         <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
@@ -70,7 +80,7 @@ export function SignIn(){
                             
                         <InputView>
                             <Input
-                                style={{paddingLeft: 40}} 
+                                style={{paddingLeft: 30}} 
                                 size="large"
                                 keyboardType='email-address'
                                 autoCorrect={false}
@@ -79,52 +89,71 @@ export function SignIn(){
                             />
                             
                             <ViewIconInput>
-                                <IconInput source={iconEmail}/>
+                                <MaterialIcons
+                                style={{
+                                    borderRightWidth: 1, 
+                                    borderColor: COLORS.PLACEHOLDER
+                                }}
+                                name='email'
+                                size={RFValue(20)}
+                                color={COLORS.RED}
+                                />
                             </ViewIconInput>
 
                         </InputView>
 
                         <InputView>
                             <Input
-                                style={{paddingLeft: 40}} 
+                                style={{paddingLeft: 30}} 
                                 size="large"
                                 autoCorrect={false}
+                                secureTextEntry={true}
                                 placeholder='Senha de usuário'
                                 onChangeText={setPassword}
                             />
                             
                             <ViewIconInput>
-                                <IconInput source={iconPass}/>
+                                <MaterialIcons
+                                style={{
+                                    borderRightWidth: 1, 
+                                    borderColor: COLORS.PLACEHOLDER
+                                }}
+                                name='lock'
+                                size={RFValue(20)}
+                                color={COLORS.RED}
+                                />
                             </ViewIconInput>
 
                         </InputView>
 
                         <Button
-                        onPress={() => alert('OK')}
+                        onPress={handleLogin}
                         title='Entrar'
+                        isLoading={false}
                         />
                     </KeyboardAvoidingView>
-                
-                    <MenuOptions>
-                        <ViewOptios>
-                            <SubTitle>não possuo uma conta</SubTitle>
-                            <ButtonIcon 
-                                icon='arrow-right-alt' 
-                                color={COLORS.RED}
-                                onPress={() => navigation.navigate('Register' as never)}
-                            />
-                        </ViewOptios>
-
-                        <ViewOptios>
-                            <SubTitle>esqueci minha senha</SubTitle>
-                            <ButtonIcon 
-                                icon='mail-outline' 
-                                color={COLORS.RED}
-                                onPress={() => setRecoverAccount(true) }
-                            />
-                        </ViewOptios>
-                    </MenuOptions>
+                    
                 </Background>
+
+                <MenuOptions>
+                    <ViewOptios>
+                        <SubTitle>não possuo uma conta</SubTitle>
+                        <ButtonIcon 
+                            icon='arrow-right-alt' 
+                            color={COLORS.RED}
+                            onPress={() => navigation.navigate('Register' as never)}
+                        />
+                    </ViewOptios>
+
+                    <ViewOptios>
+                        <SubTitle>esqueci minha senha</SubTitle>
+                        <ButtonIcon 
+                            icon='mail-outline' 
+                            color={COLORS.RED}
+                            onPress={() => setRecoverAccount(true) }
+                        />
+                    </ViewOptios>
+                </MenuOptions>
                 
                 { recoverAccount && (
                     <RecoverAccount>
@@ -143,13 +172,9 @@ export function SignIn(){
                                 placeholder='Digite seu E-mail'
                                 keyboardType='email-address'
                                 autoCorrect={false}
+                                value={emailRecoverAccount}
+                                onChangeText={setEmailRecoverAccount}
                             />
-
-                            <View style={{width: RFValue(40), height: RFValue(50), 
-                            backgroundColor: COLORS.BACKGROUND,
-                            position: 'absolute', right: 0, borderTopRightRadius: RFValue(10),
-                            borderBottomRightRadius: RFValue(10)
-                            }} />
 
                             <ButtonIcon
                                 style={{
@@ -157,7 +182,8 @@ export function SignIn(){
                                     right: 0, alignSelf: 'center'
                                 }}
                                 icon='send'
-                                color={COLORS.TEXT}
+                                color={COLORS.RED}
+                                onPress={handleRecoverAccount}
                             />
                         </ContentRecover>
                     </RecoverAccount>

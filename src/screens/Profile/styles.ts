@@ -6,7 +6,7 @@ import { MotiView } from 'moti';
 
 export const Container = styled.View`
     flex: 1;
-    padding: ${getStatusBarHeight() + 20 }px ${RFValue(20)}px ${RFValue(40)}px;
+    padding: ${getStatusBarHeight() + 20 }px ${RFValue(20)}px ${RFValue(0)}px;
     background-color: ${({theme}) => theme.COLORS.BACKGROUND};
     align-items: center;
 `;

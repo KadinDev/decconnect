@@ -1,4 +1,4 @@
-import React, { Children } from 'react';
+import React from 'react';
 import { RectButtonProps } from 'react-native-gesture-handler';
 
 import {

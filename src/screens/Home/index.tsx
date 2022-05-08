@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlatList, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import {
@@ -12,7 +12,7 @@ import { ButtonIcon } from '@components/ButtonIcon';
 import { PostsHome, PostsHomeProps } from '@components/PostsHome';
 
 import theme from '../../theme';
-import {USER_PUBLICATE_HOME} from '@utils/contents'
+import {USER_PUBLICATE_HOME} from '@utils/contents';
 
 export function Home(){
     const [isLoading, setIsLoading] = useState(false);

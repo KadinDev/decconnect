@@ -7,6 +7,7 @@ export default {
         YELLOW: '#FFC412',
         BLUE: '#0775F2',
         LIME: '#00ff00',
+        LIME_DARK: '#008000',
         TEXT: '#FEFEFE',
         TEXT_OPACITY: '#58585E',
         WHITE_SECONDARY: '#F5F5F5',

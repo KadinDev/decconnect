@@ -183,7 +183,8 @@ export function Profile(){
                 onPress={handleShowAllPosts}
                 >
                     <Text style={{color: theme.COLORS.TEXT_OPACITY, 
-                        textAlign: 'right', fontSize: RFValue(15)}}> ...ver todos
+                        textAlign: 'right', fontSize: RFValue(15),
+                        paddingBottom: RFValue(30)}}> ...ver todos
                     </Text>
                 </TouchableOpacity>
                 

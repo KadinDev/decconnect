@@ -130,4 +130,23 @@ CARREGANDO INFORMAÇÕES DO FIREBASE
     },[]);
 
 ================================
-Para validação de formulários
+Para validação de formulários - REACT HOOK FORM
+utilizar ele com Yup, fica mais legal e completo:
+  yarn add react-hook-form
+
+PARA TRABALHAR COM ERROS NO FORMULARIO:
+  yarn add @hookform/resolvers yup
+
+=======================================
+ESTAVA DANDO ERRO NO RECTBUTTON, PARA ARRUMAR:
+- fui no arquivo GestureButtons.d.ts dentro de NodeModules
+- e remove de dentro do onPress o:
+
+pointerInside: boolean, deixando só, () => void;
+
+export interface BaseButtonProps extends RawButtonProps {
+    onPress?: (pointerInside: boolean) => void;
+    onActiveStateChange?: (active: boolean) => void;
+    style?: StyleProp<ViewStyle>;
+    testID?: string;
+}
