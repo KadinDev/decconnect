@@ -15,7 +15,6 @@ import {
     ViewIconInput,
     ViewTitle,
     Title,
-    IconInput,
     MenuOptions,
     ViewOptios,
     SubTitle,
