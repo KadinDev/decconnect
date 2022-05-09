@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     KeyboardAvoidingView,
     Platform,
@@ -16,7 +16,6 @@ import {
     ContentInput,
     Title,
     ViewInput,
-    AboutDev
 } from './styles';
 
 import imageLogin from '@assets/login.jpg';
@@ -35,6 +34,9 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { useAuth } from '@hooks/auth';
+import auth from '@react-native-firebase/auth';
+
 // só posso exportar o que estiver fora da função
 // tipando para usar no registro
 export type FormData = {
@@ -43,6 +45,7 @@ export type FormData = {
     city: string;
     password: string;
     password_confirm: string;
+    about: string;
 };
 
 // o yup é um biblioteca para fazer validação baseado em scheme
@@ -56,11 +59,12 @@ export const schema = yup.object({
     password: yup.string().min( 6, "No minimo 6 dígitos" )
     .required('Informe a senha'),
 
-
     // oneOf para usar a referência de outro input, para comparar
     // pego o campo -> yup.ref('password')
     password_confirm: yup.string().required('Confirmar senha').oneOf([ yup.ref('password'), null ],
-    'Senha não confere' )
+    'Senha não confere' ),
+
+    about: yup.string().required('Fale um pouco sobre você')
 });
 
 
@@ -68,6 +72,8 @@ export function Register(){
     const navigation = useNavigation();
     const { COLORS, FONTS } = useTheme();
 
+    const [load, setLoad] = useState(false);
+    //const { signUp, isLogging } = useAuth();
 
     // <FormData> tipo o useForm tbm, para não dar erros
     // formState: { errors } - assim uso para recuperar os errors
@@ -78,9 +84,12 @@ export function Register(){
     });
     
 
-    function handleUserRegister( data : FormData ){
-        console.log(data)
+    function handleUserRegister(  ){
+        alert('oi')
+        //signUp(data);
+        //auth().createUserWithEmailAndPassword(email, password)
     };
+    
 
     return (       
         <Background source={imageLogin}
@@ -216,11 +225,24 @@ export function Register(){
                                 <Title> Sobre </Title>
                                 <ViewInput>
                                     
-                                    <AboutDev
-                                        style={{textAlignVertical: 'top'}}
+                                    <ControlledInput
+                                        control={control}
+                                        name='about'
+                                        error={errors.about}
+                                        size='large'
+
                                         autoCorrect={false}
                                         multiline={true}
                                         placeholder='Apresente-se'
+                                        style={{
+                                            textAlignVertical: 'top',
+                                            maxHeight: RFValue(150),
+                                            height: RFValue(150),
+                                            fontSize: RFValue(16),
+                                            paddingTop: RFValue(10),
+                                            marginBottom: RFValue(10)
+                                        }}
+                                    
                                     />
                                 </ViewInput>
                             </ContentInput>
@@ -235,9 +257,10 @@ export function Register(){
                                 
                                 // agora chamo o handleSubmit, envolvendo
                                 // a função handleUserRegister
-                                onPress={ handleSubmit(handleUserRegister) }
+                                onPress={ handleUserRegister }
                                 
-                                isLoading={false}
+                                isLoading={load}
+
                             />
 
 

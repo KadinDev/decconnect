@@ -27,7 +27,6 @@ export const Title = styled.Text`
 
 export const InputView = styled.View`
     width: 80%;
-    height: ${RFValue(50)}px;
     flex-direction: row;
     position: relative;
     margin-bottom: ${RFValue(10)}px;

@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1061196549328",
+    "project_id": "devconnect-bcac9",
+    "storage_bucket": "devconnect-bcac9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061196549328:android:b7389c2017496e341122d5",
+        "android_client_info": {
+          "package_name": "com.devconnect"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061196549328-dm57cm1o5dsfb70osbj1ac5o49fu8eda.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.devconnect",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1061196549328-8dv8f16e4p14ngui4ahq6s8gqag8l5km.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAiEobvy8o8pw3L7TyVEgyJ17XNexR0P4s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061196549328-8dv8f16e4p14ngui4ahq6s8gqag8l5km.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,6 +6,7 @@ import {
     View,
     TouchableWithoutFeedback,
     Keyboard,
+    Alert
 } from 'react-native';
 
 import {
@@ -15,7 +16,6 @@ import {
     ViewIconInput,
     ViewTitle,
     Title,
-    IconInput,
     MenuOptions,
     ViewOptios,
     SubTitle,
@@ -28,30 +28,33 @@ import { MaterialIcons } from '@expo/vector-icons';
 
 import { useTheme } from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
+import { useNavigation } from '@react-navigation/native';
 
 import { ButtonIcon } from '@components/ButtonIcon';
 import { Input } from '@components/Input';
 import { Button } from '@components/Button';
 
-import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '@hooks/auth';
 
 export function SignIn(){
-    const navigation = useNavigation();
-
     const { COLORS, FONTS } = useTheme();
+    const navigation = useNavigation();
+    
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [recoverAccount, setRecoverAccount] = useState(false);
-    const [emailRecoverAccount, setEmailRecoverAccount] = useState('');
+
+    const {signIn, forgotPassword, isLogging} = useAuth();
 
     function handleLogin(){
-        alert(email + password)
+       signIn(email, password);
     };
 
     function handleRecoverAccount(){
-        alert(`E-mail enviado para ${emailRecoverAccount}`);
-        setEmailRecoverAccount('');
+        forgotPassword(email);
+        setEmail('');
         setRecoverAccount(false);
+        Keyboard.dismiss();
     };
 
     return (
@@ -85,6 +88,7 @@ export function SignIn(){
                                 keyboardType='email-address'
                                 autoCorrect={false}
                                 placeholder='E-mail'
+                                value={email}
                                 onChangeText={setEmail}
                             />
                             
@@ -109,6 +113,7 @@ export function SignIn(){
                                 autoCorrect={false}
                                 secureTextEntry={true}
                                 placeholder='Senha de usuário'
+                                value={password}
                                 onChangeText={setPassword}
                             />
                             
@@ -129,7 +134,7 @@ export function SignIn(){
                         <Button
                         onPress={handleLogin}
                         title='Entrar'
-                        isLoading={false}
+                        isLoading={isLogging}
                         />
                     </KeyboardAvoidingView>
                     
@@ -172,8 +177,8 @@ export function SignIn(){
                                 placeholder='Digite seu E-mail'
                                 keyboardType='email-address'
                                 autoCorrect={false}
-                                value={emailRecoverAccount}
-                                onChangeText={setEmailRecoverAccount}
+                                value={email}
+                                onChangeText={setEmail}
                             />
 
                             <ButtonIcon

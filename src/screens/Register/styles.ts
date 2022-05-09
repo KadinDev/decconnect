@@ -43,18 +43,3 @@ export const ViewInput = styled.View`
     flex-direction: row;
     align-items: center;
 `;
-
-export const AboutDev = styled.TextInput.attrs(({theme}) => ({
-    placeholderTextColor: theme.COLORS.PLACEHOLDER,
-}))`
-    width: 100%;
-    max-height: ${RFValue(150)}px;
-    height: ${RFValue(150)}px;
-    background-color: ${({theme}) => theme.COLORS.TEXT};
-    border-radius: ${RFValue(10)}px;
-    color: ${({theme}) => theme.COLORS.BACKGROUND};
-    font-family: ${({theme}) => theme.FONTS.ROBOTO_500};
-    font-size: ${RFValue(16)}px;
-    padding: ${RFValue(10)}px;
-    margin-bottom: ${RFValue(10)}px;
-`;

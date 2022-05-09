@@ -13,12 +13,14 @@ type Props = TouchableOpacityProps & {
     icon: React.ComponentProps<typeof MaterialIcons>['name'];
     color: string;
     isLoading?: boolean;
+    onPress?: () => void;
 };
 
 export function ButtonIcon( {
     icon, 
     color, 
-    isLoading, 
+    isLoading,
+    onPress,
     ...rest
 } : Props ){
 
@@ -26,6 +28,7 @@ export function ButtonIcon( {
         <Container  
             activeOpacity={0.8}
             {...rest}
+            onPress={onPress}
         >   
             { 
             isLoading ? 

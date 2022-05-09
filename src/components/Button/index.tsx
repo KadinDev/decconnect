@@ -9,19 +9,16 @@ import {
 } from './styles';
 
 type Props = RectButtonProps & {
-    type?: TypeProps,
     title?: string,
+    type?: TypeProps,
     isLoading?: boolean,
-    onPress: () => void,
 };
 
 export function Button({
-    type = 'primary',
     title,
+    type = 'primary',
     isLoading = false,
-    onPress,
     ...rest
-    
 } : Props ){
 
     return (
@@ -29,7 +26,6 @@ export function Button({
             type={type}
             // enabled só será true se o isLoading for true
             enabled={!isLoading}
-            onPress={onPress}
             { ...rest }
         >
             { isLoading ? <Load/> : <Title> {title} </Title> }

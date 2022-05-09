@@ -16,6 +16,8 @@ import { CustomDrawerItem } from '@components/CustomDrawerItem';
 import { useNavigation } from '@react-navigation/native';
 
 import { RectButtonProps } from 'react-native-gesture-handler';
+import { useAuth } from '@hooks/auth';
+import auth from '@react-native-firebase/auth';
 
 type ItemProps = {
     id: string;
@@ -28,13 +30,18 @@ type Props = RectButtonProps & {
 
 
 export function CustomDrawerContent( {type, ...rest} : Props ){
-
+    const {signOut} = useAuth();
+    
     const navigation = useNavigation();
     const [selected, setSelected] = useState('1')
 
     function handleButtonNavigation(item : ItemProps){
         setSelected(item.id);
         navigation.navigate(item.name as never);
+    };
+
+    function handleSignOut(){
+        auth().signOut();
     };
 
     return (
@@ -68,7 +75,7 @@ export function CustomDrawerContent( {type, ...rest} : Props ){
 
                 <ButtonIconDrawer
                     type="primary"
-                    onPress={ () => alert('sair do app')}
+                    onPress={handleSignOut}
                     {...rest}
                 >
                     <Icon name="logout" />
