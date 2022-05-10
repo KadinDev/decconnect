@@ -8,6 +8,7 @@ import { Roboto_400Regular, Roboto_500Medium, Roboto_700Bold } from '@expo-googl
 import { ThemeProvider } from 'styled-components/native';
 import theme from './src/theme';
 
+import { AuthProvider } from '@hooks/auth';
 import { Routes } from './src/routes';
 
 export default function App(){
@@ -28,7 +29,9 @@ export default function App(){
 
       <StatusBar style="light" translucent backgroundColor="transparent" />
 
-      <Routes/>
+      <AuthProvider>
+        <Routes/>
+      </AuthProvider>
 
     </ThemeProvider>
   )

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Modal, KeyboardAvoidingView, View, TouchableOpacity, Text } from 'react-native';
 
 import {
@@ -29,13 +29,35 @@ import { Input } from '@components/Input';
 import { QuantityListPostsUser } from '@components/QuantityListPostsUser';
 import { QuantityConnectionsUser } from '@components/QuantityConnectionsUser';
 
-export function Profile(){
+import { useAuth } from '@hooks/auth';
+import firestore from '@react-native-firebase/firestore';
 
-    const [user, setUser] = useState(true);
+import { FormData } from '@screens/Register';
+
+export function Profile(){
+    const {user} = useAuth();
+
     const [showButtonConnectNewDev, setShowButtonConnectNewDev] = useState(true);
     const [modal, setModal] = useState(false);
     const [replaceContentModal, setReplaceContentModal] = useState('posts');
     
+    const [aboutMe, setAboutMe] = useState<FormData>();
+
+    // LOAD INFO USER FROM ID USER
+    useEffect(() => {
+        async function loadUser(){
+            await firestore().collection('developers')
+            .doc(user?.id)
+            .get()
+            .then( response => {
+                const about = response.data() as FormData;
+                setAboutMe(about)
+            });
+        };
+        loadUser();
+    },[])
+    // END LOAD
+
     // se for um usuário visitando seu perfil
     function handleConnectNewDev(){
         if(showButtonConnectNewDev === true){
@@ -87,18 +109,10 @@ export function Profile(){
         <Container>
             <ContentUser>
                 <View style={{width: '100%', alignItems: 'center', position: 'relative'}}>
-                    <PhotoUser source={{ uri: 'https://www.github.com/kadindev.png'}} />
-                    <Name> Ricardo Correa </Name>
-                    <About> Mobile Developer </About>
-                    <DescriptionDev>
-                    Trilhando no universo Web e Mobile Developer desde 2019. 
-                    Possui experiência na atuação como Desenvolvedor Mobile (React Native, Typescript, Javascript) e como Desenvolvedor Web, Front e Back (React Js, Node, Express, MySql...).
-
-                    Apaixonado por tecnologia, onde sempre busca a evolução e o conhecimento necessário para que o levem a fazer o trabalho sempre com honra e perfeição.
-
-                    Passou por programas de treinamentos Mobile e Web da instituição de ensino Rocketseat (Bootcamps)
-                    e Bootcamp MySQL com o instrutor Colt Steele.
-                    </DescriptionDev>
+                    <PhotoUser source={{ uri: aboutMe?.avatar }} />
+                    <Name> { aboutMe?.name } </Name>
+                    <About> { aboutMe?.area } </About>
+                    <DescriptionDev> {aboutMe?.about} </DescriptionDev>
 
                     { user ? (
                         <ButtonIcon

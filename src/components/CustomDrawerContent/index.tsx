@@ -17,6 +17,8 @@ import { useNavigation } from '@react-navigation/native';
 
 import { RectButtonProps } from 'react-native-gesture-handler';
 
+import {useAuth} from '@hooks/auth';
+
 type ItemProps = {
     id: string;
     name: string
@@ -28,6 +30,7 @@ type Props = RectButtonProps & {
 
 
 export function CustomDrawerContent( {type, ...rest} : Props ){
+    const {signOut} = useAuth();
 
     const navigation = useNavigation();
     const [selected, setSelected] = useState('1')
@@ -68,7 +71,7 @@ export function CustomDrawerContent( {type, ...rest} : Props ){
 
                 <ButtonIconDrawer
                     type="primary"
-                    onPress={ () => alert('sair do app')}
+                    onPress={signOut}
                     {...rest}
                 >
                     <Icon name="logout" />

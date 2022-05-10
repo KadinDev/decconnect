@@ -34,6 +34,8 @@ import { Button } from '@components/Button';
 
 import { useNavigation } from '@react-navigation/native';
 
+import { useAuth } from '@hooks/auth';
+
 export function SignIn(){
     const navigation = useNavigation();
 
@@ -41,15 +43,17 @@ export function SignIn(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [recoverAccount, setRecoverAccount] = useState(false);
-    const [emailRecoverAccount, setEmailRecoverAccount] = useState('');
+    const [recoverEmail, setRecoverEmail] = useState('');
+
+    const {signIn, forgotPassword, isLogging} = useAuth();
 
     function handleLogin(){
-        alert(email + password)
+        signIn(email, password)
     };
 
     function handleRecoverAccount(){
-        alert(`E-mail enviado para ${emailRecoverAccount}`);
-        setEmailRecoverAccount('');
+        forgotPassword(recoverEmail);
+        setRecoverEmail('');
         setRecoverAccount(false);
     };
 
@@ -128,7 +132,7 @@ export function SignIn(){
                         <Button
                         onPress={handleLogin}
                         title='Entrar'
-                        isLoading={false}
+                        isLoading={isLogging}
                         />
                     </KeyboardAvoidingView>
                     
@@ -171,8 +175,8 @@ export function SignIn(){
                                 placeholder='Digite seu E-mail'
                                 keyboardType='email-address'
                                 autoCorrect={false}
-                                value={emailRecoverAccount}
-                                onChangeText={setEmailRecoverAccount}
+                                value={recoverEmail}
+                                onChangeText={setRecoverEmail}
                             />
 
                             <ButtonIcon

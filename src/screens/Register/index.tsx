@@ -35,14 +35,19 @@ import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 
+import { useAuth } from '@hooks/auth';
+
 // só posso exportar o que estiver fora da função
 // tipando para usar no registro
 export type FormData = {
+    avatar?: string;
     name: string;
     email: string;
     city: string;
     password: string;
     password_confirm: string;
+    area: string;
+    about: string;
 };
 
 // o yup é um biblioteca para fazer validação baseado em scheme
@@ -60,7 +65,10 @@ export const schema = yup.object({
     // oneOf para usar a referência de outro input, para comparar
     // pego o campo -> yup.ref('password')
     password_confirm: yup.string().required('Confirmar senha').oneOf([ yup.ref('password'), null ],
-    'Senha não confere' )
+    'Senha não confere' ),
+
+    area: yup.string().required('Area de atuação'),
+    about: yup.string().required('Escreve sobre você')
 });
 
 
@@ -68,6 +76,7 @@ export function Register(){
     const navigation = useNavigation();
     const { COLORS, FONTS } = useTheme();
 
+    const {signUp, isLogging} = useAuth();
 
     // <FormData> tipo o useForm tbm, para não dar erros
     // formState: { errors } - assim uso para recuperar os errors
@@ -79,7 +88,7 @@ export function Register(){
     
 
     function handleUserRegister( data : FormData ){
-        console.log(data)
+        signUp(data)
     };
 
     return (       
@@ -129,13 +138,6 @@ export function Register(){
                                         style={{paddingRight: RFValue(40)}}
                                         autoCorrect={false}
                                         placeholder='Rick Dev'
-
-                                        /* não preciso mais ter esses dois aqui, pois estão
-                                            sendo controlados pelo react-hook-form 
-                                        
-                                            value={name}
-                                            onChangeText={setName}
-                                        */
                                     />
 
                                 </ViewInput>
@@ -211,19 +213,45 @@ export function Register(){
                                     />
                                 </ViewInput>
                             </ContentInput>
+                            
+                            <ContentInput>
+                                <Title> Atuação </Title>
+                                <ViewInput>
+                                    
+                                    <ControlledInput
+                                        control={control} // quem irá controlar esse input (useForm)
+                                        error={errors.area}
+                                        name='area' // nome único que foi tipado
 
+                                        size='medium'
+                                        autoCorrect={false}
+                                        placeholder='Mobile Developer'
+                                    />
+                                </ViewInput>
+                            </ContentInput>
+                            
                             <ContentInput>
                                 <Title> Sobre </Title>
                                 <ViewInput>
                                     
-                                    <AboutDev
-                                        style={{textAlignVertical: 'top'}}
-                                        autoCorrect={false}
-                                        multiline={true}
-                                        placeholder='Apresente-se'
-                                    />
+                                <ControlledInput
+                                    control={control} // quem irá controlar esse input (useForm)
+                                    error={errors.about}
+                                    name='about' // nome único que foi tipado
+                                    
+                                    multiline
+                                    size='medium'
+                                    autoCorrect={false}
+                                    placeholder='Nos conte um pouco sobre você'
+                                    style={{
+                                        minHeight: RFValue(120),
+                                        textAlignVertical: 'top',
+                                        paddingTop: RFValue(10)
+                                    }}
+                                />
                                 </ViewInput>
                             </ContentInput>
+
 
                             <Button
                                 style={{
@@ -237,9 +265,8 @@ export function Register(){
                                 // a função handleUserRegister
                                 onPress={ handleSubmit(handleUserRegister) }
                                 
-                                isLoading={false}
+                                isLoading={isLogging}
                             />
-
 
                         <Text
                         style={{textAlign: 'center', 
