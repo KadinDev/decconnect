@@ -55,7 +55,7 @@ export function PostsHome( { data } : Props ){
     const navigation = useNavigation();
 
     function handleNavigationProfileUser( ){
-        navigation.navigate('Perfil' as never );
+        navigation.navigate('profile');
     };
 
     function handleLike(){

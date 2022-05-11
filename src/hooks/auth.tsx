@@ -13,21 +13,27 @@ import auth from '@react-native-firebase/auth';
 import storage from '@react-native-firebase/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const imageNewProfile = 'https://e7.pngegg.com/pngimages/168/827/png-clipart-computer-icons-user-profile-avatar-profile-woman-desktop-wallpaper-thumbnail.png';
+
 type User = {
     id: string;
     name: string;
 };
 
+// tipando corretamente para não dar erro no form,
+// já que estou usando o useForm com tratamento de erro
+type signUpData = {
+    about: string,
+    area: string;
+    city: string,
+    email: string,
+    password: string,
+    name: string,
+};
+
 type AuthContextData = {
     signIn: ( email: string, password: string ) => Promise<void>;
-    signUp: (
-        email: string,
-        password: string,
-        name: string,
-        city: string,
-        password_confirm: string,
-        about: string,
-    ) => Promise<void>;
+    signUp: ( data: signUpData ) => Promise<void>;
     signOut: () => Promise<void>;
     forgotPassword: ( email: string ) => Promise<void>;
     isLogging: boolean;
@@ -96,13 +102,15 @@ function AuthProvider( {children} : AuthProviderProps ){
         .finally(() => setIsLogging(false));
     };
 
-    async function signUp(
-        name: string, 
-        email: string, 
-        password: string,
-        city: string,
-        about: string,
-    ){
+    async function signUp({
+        about,
+        area,
+        city,
+        email,
+        password,
+        name,
+    } : signUpData ){
+
         setIsLogging(true);
 
         auth().createUserWithEmailAndPassword(email, password)
@@ -111,12 +119,14 @@ function AuthProvider( {children} : AuthProviderProps ){
             .collection('developers')
             .doc(account.user.uid)
             .set({
+                about,
+                area,
+                city,
                 name,
                 email,
                 createdUser: firestore.FieldValue.serverTimestamp(),
-                city,
-                about,
-                level: 0
+                level: 0,
+                avatar: imageNewProfile,
             })
             .then( async () => {
                 const userData = {
@@ -132,7 +142,7 @@ function AuthProvider( {children} : AuthProviderProps ){
         })
         .catch( () => Alert.alert(
             'Registro', 'Não foi possível fazer seu registro, verifique se preencheu tudo corretamente.'
-        ) )
+        ))
     };
 
     async function loadStorageUser(){

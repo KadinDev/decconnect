@@ -40,7 +40,7 @@ import { useAuth } from '@hooks/auth';
 // só posso exportar o que estiver fora da função
 // tipando para usar no registro
 export type FormData = {
-    avatar?: string;
+    avatar: string;
     name: string;
     email: string;
     city: string;
@@ -246,7 +246,8 @@ export function Register(){
                                     style={{
                                         minHeight: RFValue(120),
                                         textAlignVertical: 'top',
-                                        paddingTop: RFValue(10)
+                                        paddingTop: RFValue(10),
+                                        paddingBottom: RFValue(10)
                                     }}
                                 />
                                 </ViewInput>

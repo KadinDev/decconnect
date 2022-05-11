@@ -8,7 +8,7 @@ export declare global {
         interface RootParamList {
             home: undefined;
             favorites: undefined;
-            profile: UserProfileNavigationProps;
+            profile: undefined;
         }
     }
 }
