@@ -23,11 +23,21 @@ import { ButtonIcon } from '@components/ButtonIcon';
 import { Input } from '@components/Input';
 import {connections} from '@utils/contents';
 
+import { useNavigation } from '@react-navigation/native';
+
 type Props = {
     hideModal: () => void;
 };
 
 export function QuantityConnectionsUser( {hideModal} : Props ){
+
+    const navigation = useNavigation();
+
+    function handleNavigationProfileUser( id: string ){
+        // foi tipado em @types a tela Profile, para dar certo
+        navigation.navigate('ProfileUserNavigation', { id });
+    };
+
     return (
         <Container>
             <Header>
@@ -71,7 +81,7 @@ export function QuantityConnectionsUser( {hideModal} : Props ){
                         </InfoUser>
 
                         <ButtonAvatar
-                        onPress={ () => alert(item.name) }
+                        onPress={ () => handleNavigationProfileUser(item.id) }
                         >
                             <Avatar source={{ uri: item.avatar }} />
                         </ButtonAvatar>

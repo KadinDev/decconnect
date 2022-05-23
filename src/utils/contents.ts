@@ -100,7 +100,7 @@ export const USER_PUBLICATE_HOME = [
 
 export const connections = [
     {
-        id: '1',
+        id: 'OY11QnvSP9WWmDESiRqdIm07PzR2',
         name: 'Ricardo Alves',
         about: 'Mobile Developer',
         avatar: 'https://www.github.com/kadindev.png'

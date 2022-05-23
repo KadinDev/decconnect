@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { FlatList, TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 import {
@@ -14,8 +14,38 @@ import { PostsHome, PostsHomeProps } from '@components/PostsHome';
 import theme from '../../theme';
 import {USER_PUBLICATE_HOME} from '@utils/contents';
 
-export function Home(){
+import { AuthContext } from '@hooks/auth';
+import firestore from '@react-native-firebase/firestore';
+
+import { useNavigation } from '@react-navigation/native';
+
+
+export function Home( ){
+
+    const navigation = useNavigation();
     const [isLoading, setIsLoading] = useState(false);
+    const { user } = useContext(AuthContext);
+    
+    const [posts, setPosts] = useState<PostsHomeProps[]>([]);
+
+    useEffect( () => {
+        const subscriber = firestore()
+        .collection('posts')
+        .orderBy('created', 'desc')
+        .onSnapshot( querySnapshot => {
+            const data = querySnapshot.docs.map( (doc) => {
+                return {
+                    id: doc.id,
+                    ...doc.data()
+                }
+            }) as PostsHomeProps[];
+
+            setPosts(data);
+            setIsLoading(false);
+        });
+
+        return () => subscriber();
+    },[]);
 
     return (
         <Container>
@@ -39,12 +69,12 @@ export function Home(){
 
             <FlatList
                 style={{flex: 1, marginTop: 40}}
-                data={USER_PUBLICATE_HOME}
+                data={posts}
                 keyExtractor={item => item.id}
                 renderItem={ ({item}) => (
 
                     <PostsHome 
-                        data={item}  
+                        data={item}
                     />
                 
                 ) }

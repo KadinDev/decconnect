@@ -6,9 +6,11 @@ export type UserProfileNavigationProps = {
 export declare global {
     namespace ReactNavigation {
         interface RootParamList {
-            home: undefined;
-            favorites: undefined;
-            profile: undefined;
+            Home: undefined;
+            Favorites: undefined;
+            Profile: undefined;
+            NewPost: undefined;
+            ProfileUserNavigation: UserProfileNavigationProps;
         }
     }
 }

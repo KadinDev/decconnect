@@ -32,12 +32,16 @@ import { useAuth } from '@hooks/auth';
 import firestore from '@react-native-firebase/firestore';
 
 import { FormData } from '@screens/Register';
-import { useNavigation } from '@react-navigation/native';
 
-export function Profile(){
-    const {user} = useAuth();
+import { useNavigation, useRoute } from '@react-navigation/native';
+import { UserProfileNavigationProps } from '@src/@types/navigation';
+
+export function ProfileUserNavigation(){
 
     const navigation = useNavigation();
+    // pegando id enviado pela rota
+    const route = useRoute();
+    const { id } = route.params as UserProfileNavigationProps;
 
     const [showButtonConnectNewDev, setShowButtonConnectNewDev] = useState(true);
     const [modal, setModal] = useState(false);
@@ -46,18 +50,20 @@ export function Profile(){
     const [aboutMe, setAboutMe] = useState<FormData>();
 
     // LOAD INFO USER FROM ID USER
-    useEffect(() => {
-        async function loadUser(){
-            await firestore().collection('developers')
-            .doc(user?.id)
+    useEffect( () => {
+        // se tem o id, vai acessar o produto no formulario,
+        // se não tem vai pro formulario vazio para cadastro
+        if(id){
+            firestore()
+            .collection('developers')
+            .doc(id) // selcionando um documento apenas
             .get()
             .then( response => {
                 const about = response.data() as FormData;
                 setAboutMe(about)
             });
-        };
-        loadUser();
-    },[])
+        }
+    },[id]); // id como dependencia*/
     // END LOAD
 
     // se for um usuário visitando seu perfil
@@ -103,7 +109,7 @@ export function Profile(){
         setModal(false);
     };
 
-   
+    
     return (
         <Container>
             <ContentUser>
@@ -111,24 +117,22 @@ export function Profile(){
                     <PhotoUser source={{ uri: aboutMe?.avatar }} />
                     <Name> { aboutMe?.name } </Name>
                     <About> { aboutMe?.area } </About>
-                    <DescriptionDev> {aboutMe?.about} </DescriptionDev>
+                    <DescriptionDev> { aboutMe?.about } </DescriptionDev>
 
+                    
                     <ButtonIcon
-                    icon="update"
-                    color={theme.COLORS.LIME}
+                    icon={showButtonConnectNewDev ? 'connect-without-contact' : 'check'}
+                    color={showButtonConnectNewDev ? theme.COLORS.LIME : theme.COLORS.TEXT_OPACITY}
                     style={{position: 'absolute', top: RFValue(0), right: RFValue(90)}}
-                    onPress={handleUpdatedPhoto}
+                    onPress={handleConnectNewDev}
                     />
+
+                    
 
                 </View>
 
                 <Info>
                     <ViewStatus>
-                        <ButtonIcon
-                        icon="add-box"
-                        color={theme.COLORS.LIME}
-                        onPress={ handleNewPost }
-                        />
                         <QuantityPosts> 5.555 {'\n'} posts </QuantityPosts>
                     </ViewStatus>
             

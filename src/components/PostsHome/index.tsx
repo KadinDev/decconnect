@@ -40,6 +40,7 @@ export interface PostsHomeProps {
 
 interface Props {
     data: PostsHomeProps;
+    userId?: string;
 };
 
 import { ContentModalPostUser } from '@components/ContentModalPostUser';
@@ -54,8 +55,9 @@ export function PostsHome( { data } : Props ){
 
     const navigation = useNavigation();
 
-    function handleNavigationProfileUser( ){
-        navigation.navigate('profile');
+    function handleNavigationProfileUser( id: string ){
+        navigation.navigate('ProfileUserNavigation', { id }); // foi tipado em @types a 
+        // tela Profile, para dar certo
     };
 
     function handleLike(){
@@ -80,7 +82,7 @@ export function PostsHome( { data } : Props ){
                 
                 <UserContainer>
                     <ButtonAvatar
-                        onPress={handleNavigationProfileUser}
+                        onPress={ () => handleNavigationProfileUser(data.id)}
                     >
                         <Avatar source={{uri: data.avatar}} />
                     </ButtonAvatar>
