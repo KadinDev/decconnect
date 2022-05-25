@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 
 import {
     Container,
@@ -25,9 +25,6 @@ import theme from '../../theme';
 import {RFValue} from 'react-native-responsive-fontsize';
 import { ButtonIcon } from '@components/ButtonIcon';
 
-import { QuantityListPostsUser } from '@components/QuantityListPostsUser';
-import { QuantityConnectionsUser } from '@components/QuantityConnectionsUser';
-
 import { useAuth } from '@hooks/auth';
 import firestore from '@react-native-firebase/firestore';
 
@@ -36,13 +33,8 @@ import { useNavigation } from '@react-navigation/native';
 
 export function Profile(){
     const {user} = useAuth();
-
     const navigation = useNavigation();
-
     const [showButtonConnectNewDev, setShowButtonConnectNewDev] = useState(true);
-    const [modal, setModal] = useState(false);
-    const [replaceContentModal, setReplaceContentModal] = useState('posts');
-    
     const [aboutMe, setAboutMe] = useState<FormData>();
 
     // LOAD INFO USER FROM ID USER
@@ -60,22 +52,6 @@ export function Profile(){
     },[])
     // END LOAD
 
-    // se for um usuário visitando seu perfil
-    function handleConnectNewDev(){
-        if(showButtonConnectNewDev === true){
-            setShowButtonConnectNewDev(false); //convite enviado
-            alert('Conectado com Ricardo.');
-            return;
-        };
-
-        if(showButtonConnectNewDev === false){
-            setShowButtonConnectNewDev(true);
-            alert('Desconectado com Ricardo');
-            return;
-        };
-
-    };
-
     // se for o dono do perfil
     function handleUpdatedPhoto(){
         alert('Atualizar foto de perfil')
@@ -86,24 +62,7 @@ export function Profile(){
         navigation.navigate('NewPost');
     };
 
-    // para visitante e dono do perfil
-    function handleViewFriends(){
-        setReplaceContentModal('connected');
-        setModal(true);
-    };
 
-    function handleShowAllPosts(){
-        if (replaceContentModal === 'connected'){
-            setReplaceContentModal('posts');
-        };
-        setModal(true);
-    };
-
-    function closeModal(){
-        setModal(false);
-    };
-
-   
     return (
         <Container>
             <ContentUser>
@@ -146,7 +105,7 @@ export function Profile(){
                         <ButtonIcon
                         icon="connect-without-contact"
                         color={theme.COLORS.LIME}
-                        onPress={ handleViewFriends }
+                        onPress={ () => navigation.navigate('Connections') }
                         />
                         <Friends> 1.257 {'\n'} connected </Friends>
                     </ViewStatus>
@@ -179,30 +138,13 @@ export function Profile(){
                 
                 <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={handleShowAllPosts}
+                onPress={() => alert('Ver posts')}
                 >
                     <Text style={{color: theme.COLORS.TEXT_OPACITY, 
                         textAlign: 'right', fontSize: RFValue(15),
                         paddingBottom: RFValue(30)}}> ...ver todos
                     </Text>
                 </TouchableOpacity>
-                
-                <Modal
-                    visible={modal}
-                    animationType="slide"
-                    transparent={true}
-                >
-                    { replaceContentModal === 'posts' ? (
-                        <QuantityListPostsUser
-                            hideModal={closeModal}
-                        />
-                    ) : 
-                        <QuantityConnectionsUser
-                            hideModal={closeModal}
-                        />
-                    }
-                    
-                </Modal>
 
             </ContentUser>
         </Container>

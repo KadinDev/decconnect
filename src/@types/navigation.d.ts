@@ -10,6 +10,7 @@ export declare global {
             Favorites: undefined;
             Profile: undefined;
             NewPost: undefined;
+            Connections: undefined;
             ProfileUserNavigation: UserProfileNavigationProps;
         }
     }

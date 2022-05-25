@@ -6,6 +6,7 @@ import { Home } from "@screens/Home";
 import { Search } from "@screens/Search";
 import { Favorites } from "@screens/Favorites";
 import { Profile } from "@screens/Profile";
+import { Connections } from '@screens/Connections';
 import { ProfileUserNavigation } from "@screens/ProfileUserNavigation";
 import { NewPost } from "@screens/NewPost";
 
@@ -17,12 +18,12 @@ import { CustomDrawerContent } from '@components/CustomDrawerContent';
 const { Navigator, Screen, Group } = createDrawerNavigator();
 
 export function UserRoutes(){
-    const { COLORS, FONTS } = useTheme();
+    const { COLORS } = useTheme();
 
     return (
 
         <Navigator
-            initialRouteName="Home"
+            initialRouteName="Profile"
             drawerContent={ () => {
                 return (
                     // meu Menu customizado
@@ -66,7 +67,7 @@ export function UserRoutes(){
                 }}
                 />
 
-                <Screen name="Perfil" component={Profile} 
+                <Screen name="Profile" component={Profile} 
                 options={{
                     //headerTitle: 'Welcome'
                     headerShown: false,
@@ -79,10 +80,16 @@ export function UserRoutes(){
                 }}
                 />
 
+                <Screen name="Connections" component={Connections}
+                options={{
+                    headerShown: false,
+                }}
+                />
+
                 <Screen name="ProfileUserNavigation" component={ProfileUserNavigation} 
                 options={{
                     //headerTitle: 'Welcome'
-                    headerShown: true,
+                    headerShown: false,
                 }}
                 />
                 

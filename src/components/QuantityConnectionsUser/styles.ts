@@ -1,6 +1,6 @@
 import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
-import { getBottomSpace } from 'react-native-iphone-x-helper';
+import {  getStatusBarHeight ,getBottomSpace } from 'react-native-iphone-x-helper';
 
 
 import { MotiView } from 'moti';
@@ -8,7 +8,7 @@ import { MotiView } from 'moti';
 export const Container = styled.View`
     flex: 1;
     background-color: ${({theme}) => theme.COLORS.BACKGROUND_MENU};
-    padding: ${RFValue(20)}px;
+    padding: ${getStatusBarHeight() + 20 }px ${RFValue(20)}px ${RFValue(0)}px;
 `;
 
 export const Header = styled.View`
@@ -35,8 +35,8 @@ export const ButtonSearch = styled.View`
 `;
 
 export const Title = styled.Text`
-    font-size: ${RFValue(18)}px;
-    line-height: ${RFValue(20)}px;
+    font-size: ${RFValue(22)}px;
+    line-height: ${RFValue(22)}px;
     color: ${({theme}) => theme.COLORS.TEXT};
     font-family: ${({theme}) => theme.FONTS.ROBOTO_700};
 `;

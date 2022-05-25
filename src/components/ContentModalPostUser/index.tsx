@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Image } from 'react-native';
 
 import {
     Container,
@@ -19,6 +20,8 @@ import { PostsHomeProps } from '@components/PostsHome';
 import { ButtonIcon } from '@components/ButtonIcon';
 
 import theme from '../../theme';
+import { Avatar } from '../PostsHome/styles';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 type UserProps = {
     user: PostsHomeProps;
@@ -53,6 +56,15 @@ export function ContentModalPostUser( { user, hideModal } : UserProps ){
             <Content>
 
                 <TitlePost> {user.titleContent} </TitlePost>
+
+                <Image
+                style={{
+                    width: '100%',
+                    height: RFValue(250),
+                    resizeMode: 'contain'
+                }}
+                source={{ uri: user.imagePost }}
+                />
 
                 <ContentPost> {user.content} </ContentPost>
             </Content>

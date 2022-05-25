@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 
 import {
     Container,
@@ -25,9 +25,6 @@ import theme from '../../theme';
 import {RFValue} from 'react-native-responsive-fontsize';
 import { ButtonIcon } from '@components/ButtonIcon';
 
-import { QuantityListPostsUser } from '@components/QuantityListPostsUser';
-import { QuantityConnectionsUser } from '@components/QuantityConnectionsUser';
-
 import { useAuth } from '@hooks/auth';
 import firestore from '@react-native-firebase/firestore';
 
@@ -37,23 +34,20 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { UserProfileNavigationProps } from '@src/@types/navigation';
 
 export function ProfileUserNavigation(){
-
     const navigation = useNavigation();
     // pegando id enviado pela rota
     const route = useRoute();
     const { id } = route.params as UserProfileNavigationProps;
 
     const [showButtonConnectNewDev, setShowButtonConnectNewDev] = useState(true);
-    const [modal, setModal] = useState(false);
-    const [replaceContentModal, setReplaceContentModal] = useState('posts');
-    
     const [aboutMe, setAboutMe] = useState<FormData>();
 
     // LOAD INFO USER FROM ID USER
     useEffect( () => {
         // se tem o id, vai acessar o produto no formulario,
         // se não tem vai pro formulario vazio para cadastro
-        if(id){
+
+        if(id){ // id do usuário que eu cliquei para ver 
             firestore()
             .collection('developers')
             .doc(id) // selcionando um documento apenas
@@ -82,33 +76,6 @@ export function ProfileUserNavigation(){
 
     };
 
-    // se for o dono do perfil
-    function handleUpdatedPhoto(){
-        alert('Atualizar foto de perfil')
-    };
-
-    // se for o dono do perfil
-    function handleNewPost(){
-        navigation.navigate('NewPost');
-    };
-
-    // para visitante e dono do perfil
-    function handleViewFriends(){
-        setReplaceContentModal('connected');
-        setModal(true);
-    };
-
-    function handleShowAllPosts(){
-        if (replaceContentModal === 'connected'){
-            setReplaceContentModal('posts');
-        };
-        setModal(true);
-    };
-
-    function closeModal(){
-        setModal(false);
-    };
-
     
     return (
         <Container>
@@ -119,7 +86,6 @@ export function ProfileUserNavigation(){
                     <About> { aboutMe?.area } </About>
                     <DescriptionDev> { aboutMe?.about } </DescriptionDev>
 
-                    
                     <ButtonIcon
                     icon={showButtonConnectNewDev ? 'connect-without-contact' : 'check'}
                     color={showButtonConnectNewDev ? theme.COLORS.LIME : theme.COLORS.TEXT_OPACITY}
@@ -127,7 +93,12 @@ export function ProfileUserNavigation(){
                     onPress={handleConnectNewDev}
                     />
 
-                    
+                    <ButtonIcon
+                    icon='arrow-back'
+                    color={theme.COLORS.LIME}
+                    style={{position: 'absolute', top: RFValue(0), left: RFValue(90)}}
+                    onPress={() => navigation.navigate('Connections')}
+                    />
 
                 </View>
 
@@ -150,7 +121,12 @@ export function ProfileUserNavigation(){
                         <ButtonIcon
                         icon="connect-without-contact"
                         color={theme.COLORS.LIME}
-                        onPress={ handleViewFriends }
+
+                        /* Acho que aqui vai ser preciso vai outra tela com as conexões do usuário que 
+                        escolhi, e mandar o ID dele assim como recebi aqui. tentar essa possibilidade,
+                        pois quando eu for ver as connections do usuário vou querer carregar as conexões dele.
+                        igualmente a mesma ideia para os posts*/
+                        onPress={ () => navigation.navigate('Connections') }
                         />
                         <Friends> 1.257 {'\n'} connected </Friends>
                     </ViewStatus>
@@ -173,7 +149,7 @@ export function ProfileUserNavigation(){
                                 <ButtonIcon
                                 icon="arrow-right-alt"
                                 color={theme.COLORS.TEXT}
-                                onPress={ handleNewPost }
+                                onPress={ () => {} }
                                 />
                         
                             </ViewPost>
@@ -183,7 +159,7 @@ export function ProfileUserNavigation(){
                 
                 <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={handleShowAllPosts}
+                onPress={() => {}}
                 >
                     <Text style={{color: theme.COLORS.TEXT_OPACITY, 
                         textAlign: 'right', fontSize: RFValue(15),
@@ -191,23 +167,6 @@ export function ProfileUserNavigation(){
                     </Text>
                 </TouchableOpacity>
                 
-                <Modal
-                    visible={modal}
-                    animationType="slide"
-                    transparent={true}
-                >
-                    { replaceContentModal === 'posts' ? (
-                        <QuantityListPostsUser
-                            hideModal={closeModal}
-                        />
-                    ) : 
-                        <QuantityConnectionsUser
-                            hideModal={closeModal}
-                        />
-                    }
-                    
-                </Modal>
-
             </ContentUser>
         </Container>
     );

@@ -33,7 +33,7 @@ export function CustomDrawerContent( {type, ...rest} : Props ){
     const {signOut} = useAuth();
 
     const navigation = useNavigation();
-    const [selected, setSelected] = useState('1')
+    const [selected, setSelected] = useState('3')
 
     function handleButtonNavigation(item : ItemProps){
         setSelected(item.id);

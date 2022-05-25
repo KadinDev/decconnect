@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { FlatList, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { FlatList } from 'react-native';
 
 import {
     Container,
@@ -12,7 +12,6 @@ import { ButtonIcon } from '@components/ButtonIcon';
 import { PostsHome, PostsHomeProps } from '@components/PostsHome';
 
 import theme from '../../theme';
-import {USER_PUBLICATE_HOME} from '@utils/contents';
 
 import { AuthContext } from '@hooks/auth';
 import firestore from '@react-native-firebase/firestore';
@@ -24,15 +23,15 @@ export function Home( ){
 
     const navigation = useNavigation();
     const [isLoading, setIsLoading] = useState(false);
-    const { user } = useContext(AuthContext);
     
     const [posts, setPosts] = useState<PostsHomeProps[]>([]);
 
     useEffect( () => {
         const subscriber = firestore()
         .collection('posts')
-        .orderBy('created', 'desc')
-        .onSnapshot( querySnapshot => {
+        .limit(15)
+        .orderBy('createdPost', 'desc')
+        .onSnapshot( querySnapshot => { // onSnapshot ver em tempo real
             const data = querySnapshot.docs.map( (doc) => {
                 return {
                     id: doc.id,

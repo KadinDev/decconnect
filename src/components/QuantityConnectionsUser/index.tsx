@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {FlatList} from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 import {
     Container,
@@ -24,14 +23,26 @@ import { Input } from '@components/Input';
 import {connections} from '@utils/contents';
 
 import { useNavigation } from '@react-navigation/native';
+import firestore from '@react-native-firebase/firestore';
 
-type Props = {
-    hideModal: () => void;
-};
-
-export function QuantityConnectionsUser( {hideModal} : Props ){
+export function QuantityConnectionsUser( ){
 
     const navigation = useNavigation();
+
+    /*
+    useEffect(() => {
+        async function loadConnections(){
+            await firestore().collection('connections')
+            .doc(user?.id)
+            .get()
+            .then( response => {
+                const about = response.data() as FormData;
+                setAboutMe(about)
+            });
+        };
+        loadUser();
+    },[])
+    */
 
     function handleNavigationProfileUser( id: string ){
         // foi tipado em @types a tela Profile, para dar certo
@@ -41,12 +52,12 @@ export function QuantityConnectionsUser( {hideModal} : Props ){
     return (
         <Container>
             <Header>
-                <Title style={{color: '#fff'}}> Todas as conexões </Title>
                 <ButtonIcon 
-                    icon='close' 
+                    icon='arrow-back' 
                     color={theme.COLORS.LIME} 
-                    onPress={hideModal} 
+                    onPress={ () => navigation.navigate('Profile')} 
                 />
+                <Title> conexões </Title>
             </Header>
 
             <Search>

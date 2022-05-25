@@ -44,20 +44,19 @@ interface Props {
 };
 
 import { ContentModalPostUser } from '@components/ContentModalPostUser';
-
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '@hooks/auth';
 
 export function PostsHome( { data } : Props ){
-
+    const { user } = useAuth();
     const [like, setLike] = useState(false);
     const [favorite, setFavorite] = useState(false);
     const [modal, setModal] = useState(false);
 
     const navigation = useNavigation();
 
-    function handleNavigationProfileUser( id: string ){
-        navigation.navigate('ProfileUserNavigation', { id }); // foi tipado em @types a 
-        // tela Profile, para dar certo
+    function handleNavigationProfileUser(){
+        
     };
 
     function handleLike(){
@@ -74,15 +73,15 @@ export function PostsHome( { data } : Props ){
 
     return (
         <Container
-        from = {{ opacity: 0, translateY: 300 }}
+        from = {{ opacity: 0, translateY: 250 }}
         animate = {{ opacity: 1, translateY: 0 }}
-        transition = {{ type: 'timing', duration: 1000, delay: 100 }}
+        transition = {{ type: 'timing', duration: 500, delay: 50 }}
         >
             <UserContent>
                 
                 <UserContainer>
                     <ButtonAvatar
-                        onPress={ () => handleNavigationProfileUser(data.id)}
+                        onPress={ () => handleNavigationProfileUser }
                     >
                         <Avatar source={{uri: data.avatar}} />
                     </ButtonAvatar>

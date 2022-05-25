@@ -10,15 +10,15 @@ import { Alert } from 'react-native';
 
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
-import storage from '@react-native-firebase/storage';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const imageNewProfile = 'https://e7.pngegg.com/pngimages/168/827/png-clipart-computer-icons-user-profile-avatar-profile-woman-desktop-wallpaper-thumbnail.png';
+const imageNewProfile = 'https://p.kindpng.com/picc/s/24-248253_user-profile-default-image-png-clipart-png-download.png';
 
 type User = {
     id: string;
     name: string;
 };
+
 
 // tipando corretamente para não dar erro no form,
 // já que estou usando o useForm com tratamento de erro
@@ -29,6 +29,7 @@ type signUpData = {
     email: string,
     password: string,
     name: string,
+    avatar: string,
 };
 
 type AuthContextData = {
@@ -109,6 +110,7 @@ function AuthProvider( {children} : AuthProviderProps ){
         email,
         password,
         name,
+        avatar = imageNewProfile // avatar recebe o imageNewProfile
     } : signUpData ){
 
         setIsLogging(true);
@@ -136,7 +138,6 @@ function AuthProvider( {children} : AuthProviderProps ){
                 };
                 setUser(userData);
                 await AsyncStorage.setItem(DEV_COLLECTION, JSON.stringify(userData));
-                
                 setIsLogging(false);
             })
         })

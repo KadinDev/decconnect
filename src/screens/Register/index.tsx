@@ -16,10 +16,10 @@ import {
     ContentInput,
     Title,
     ViewInput,
-    AboutDev
 } from './styles';
 
 import imageLogin from '@assets/login.jpg';
+const imageNewProfile = 'https://e7.pngegg.com/pngimages/168/827/png-clipart-computer-icons-user-profile-avatar-profile-woman-desktop-wallpaper-thumbnail.png';
 
 import { useTheme } from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
@@ -40,7 +40,7 @@ import { useAuth } from '@hooks/auth';
 // só posso exportar o que estiver fora da função
 // tipando para usar no registro
 export type FormData = {
-    avatar: string;
+    avatar: string,
     name: string;
     email: string;
     city: string;
@@ -124,6 +124,8 @@ export function Register(){
                                     </View>onnect 
                                 </Title>
                             </ViewTitle>
+                            
+                            
 
                             <ContentInput>
                                 <Title> Nome Dev </Title>

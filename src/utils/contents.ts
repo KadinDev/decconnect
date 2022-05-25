@@ -106,8 +106,8 @@ export const connections = [
         avatar: 'https://www.github.com/kadindev.png'
     },
     {
-        id: '2',
-        name: 'Fábio Castro da Silva Torres',
+        id: 'QF5ShTW51rZfKRbt8NoeOLldVOC3',
+        name: 'Fábio Castro Torres',
         about: 'React Js / Node JS',
         avatar: 'https://st2.depositphotos.com/1743476/11581/i/600/depositphotos_115812486-stock-photo-pride-man-smiling.jpg'
     },
