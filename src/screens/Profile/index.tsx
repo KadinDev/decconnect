@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useCallback } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
 import {
@@ -29,7 +29,7 @@ import { useAuth } from '@hooks/auth';
 import firestore from '@react-native-firebase/firestore';
 
 import { FormData } from '@screens/Register';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 export function Profile(){
     const {user} = useAuth();
@@ -38,19 +38,23 @@ export function Profile(){
     const [aboutMe, setAboutMe] = useState<FormData>();
 
     // LOAD INFO USER FROM ID USER
-    useEffect(() => {
-        async function loadUser(){
-            await firestore().collection('developers')
-            .doc(user?.id)
-            .get()
-            .then( response => {
-                const about = response.data() as FormData;
-                setAboutMe(about)
-            });
-        };
-        loadUser();
-    },[])
+    async function loadUser(){
+        await firestore().collection('developers')
+        .doc(user?.id)
+        .get()
+        .then( response => {
+            const about = response.data() as FormData;
+            setAboutMe(about)
+        });
+    };
     // END LOAD
+
+    // Quando a tela estiver em foco
+    useFocusEffect(
+        useCallback( () => {
+            loadUser();
+        }, [] )
+    );
 
     // se for o dono do perfil
     function handleUpdatedPhoto(){

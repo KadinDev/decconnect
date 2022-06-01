@@ -2,7 +2,6 @@ import styled from 'styled-components/native';
 import { RFValue } from 'react-native-responsive-fontsize';
 import { getBottomSpace } from 'react-native-iphone-x-helper';
 
-
 import { MotiView } from 'moti';
 
 export const Container = styled.View`
@@ -102,4 +101,11 @@ export const Button = styled.TouchableOpacity.attrs({
 export const ViewOpenModal = styled.View`
     position: absolute;
     left: 50%;
+`;
+
+
+export const ShowImagePost = styled.View`
+    position: absolute;
+    width: 100%;
+    height: 100%;
 `;

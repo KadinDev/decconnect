@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 
 import {
     Container,
@@ -11,7 +11,8 @@ import {
     AvatarLevel,
     Separator,
     TitlePost,
-    ContentPost
+    ContentPost,
+    ShowImagePost
 } from './styles';
 
 // ao invés de criar toda a interface novamente igual fiz no Home,
@@ -28,8 +29,15 @@ type UserProps = {
     hideModal: () => void;
 };
 
+
 export function ContentModalPostUser( { user, hideModal } : UserProps ){
     
+    const [showImagePost, setShowImagePost] = useState(false);
+
+    function handleViewPhotoPost(){
+        setShowImagePost(true);
+    };
+
     return (
         <Container>
 
@@ -46,7 +54,10 @@ export function ContentModalPostUser( { user, hideModal } : UserProps ){
                     <AboutAvatar> {user.about} </AboutAvatar>
                 </InfoUser>
 
-                <AvatarLevel source={{ uri: user.level }} />
+                <AvatarLevel 
+                source={{ uri: user.avatar }} 
+                style={{resizeMode: 'cover'}}
+                />
             
             </HeaderUser>
 
@@ -57,16 +68,23 @@ export function ContentModalPostUser( { user, hideModal } : UserProps ){
 
                 <TitlePost> {user.titleContent} </TitlePost>
 
-                <Image
-                style={{
-                    width: '100%',
-                    height: RFValue(250),
-                    resizeMode: 'contain'
-                }}
-                source={{ uri: user.imagePost }}
-                />
+                <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={handleViewPhotoPost}
+                >
+                    <Image
+                    style={{
+                        width: '100%',
+                        height: RFValue(250),
+                        resizeMode: 'contain',
+                        borderRadius: RFValue(25)
+                    }}
+                    source={{ uri: user.imagePost }}
+                    />
+                </TouchableOpacity>
 
                 <ContentPost> {user.content} </ContentPost>
+                
             </Content>
 
         </Container>

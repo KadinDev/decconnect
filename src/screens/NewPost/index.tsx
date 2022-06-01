@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Image, Alert, Keyboard } from 'react-native';
+import { Image, Alert, Keyboard, View } from 'react-native';
 
 import {
     Container,
@@ -24,15 +24,20 @@ import { ButtonIcon } from '@components/ButtonIcon';
 import * as ImagePicker from 'expo-image-picker';
 import { RFValue } from 'react-native-responsive-fontsize';
 
+type UserProps = {
+    level: string;
+    area: string;
+    avatar: string;
+};
 
-export function NewPost(){
+export function NewPost( { level, area, avatar} : UserProps ){
     const {user} = useAuth();
     const navigation = useNavigation();
     const { COLORS } = useTheme();
     
     const [isLoading, setIsLogging] = useState(false);
     const [levelUser, setLevelUser] = useState('');
-    const [aboutUser, setAboutUser] = useState('');
+    const [areaUser, setAreaUser] = useState('');
     
     const [avatarUrl, setAvatarUrl] = useState('');
     const [title, setTitle] = useState('');
@@ -45,10 +50,10 @@ export function NewPost(){
             .doc(user?.id)
             .get()
             .then( response => {
-                const about = response.data();
-                setLevelUser(about?.level);
-                setAboutUser(about?.about);
-                setAvatarUrl(about?.avatar);
+                const about = response.data() as UserProps;
+                setLevelUser(about.level);
+                setAreaUser(about.area);
+                setAvatarUrl(about.avatar);
             });
         };
         loadUser();
@@ -86,7 +91,7 @@ export function NewPost(){
             avatar: avatarUrl,
             name: user?.name,
             levelUser: levelUser,
-            about: aboutUser,
+            about: areaUser,
 
             titleContent: title,
             content,
@@ -133,16 +138,19 @@ export function NewPost(){
 
                 { uriImage != '' &&
                     <ViewImage>
-                        <Image
-                        style={{width: RFValue(200), height: RFValue(100), 
-                            resizeMode: 'cover', marginBottom: RFValue(15) }}
-                        source={{ uri: uriImage }}
-                        />
+                        <View style={{width: '70%', height: RFValue(150),
+                        marginBottom: RFValue(10)}}
+                        >
+                            <Image
+                            style={{flex: 1, resizeMode: 'contain', borderRadius: RFValue(20) }}
+                            source={{ uri: uriImage }}
+                            />
+                        </View>
 
                         <ButtonIcon
                             onPress={() => setUriImage('')}
                             icon='delete'
-                            color={COLORS.RED}
+                            color={COLORS.TEXT_OPACITY}
                         />
                     </ViewImage>
                 }
@@ -161,7 +169,7 @@ export function NewPost(){
                     <ButtonIcon
                         onPress={handlePickerImage}
                         icon='photo-library'
-                        color={COLORS.TEXT}
+                        color={COLORS.LIME}
                     />
                 </Photo>
 
