@@ -2,7 +2,7 @@
     DevConnect - React Native + Firebase
 </h1>
 
-<p align="center" flex-direction="row"
+<p align="center"
    ![Screenshot_1656189319](https://user-images.githubusercontent.com/65264902/175790019-c1894d27-2ed4-4f6f-9e59-7544d3ad033a.png)
    ![Screenshot_1656189339](https://user-images.githubusercontent.com/65264902/175790030-69f229c7-6bc9-48a1-a390-1bd876fb77e1.png)
    ![Screenshot_1656189670](https://user-images.githubusercontent.com/65264902/175790033-d4673e1a-3ccf-47c1-a88c-4c605f3b707c.png)
